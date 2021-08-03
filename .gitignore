@@ -1,0 +1,6 @@
+**/*.o
+**/*.a
+**/*.dSYM
+.vscode/
+.DS_Store
+philosophers
