@@ -22,7 +22,7 @@ typedef struct s_all t_all;
 
 typedef struct s_philosopher {
 	int				eaten_meals;
-	time_t			time_to_die_without_food;
+	time_t			time_to_die;
 	t_all			*all;
 	pthread_mutex_t	*first_taken_fork;
 	pthread_mutex_t	*second_taken_fork;
@@ -53,6 +53,7 @@ pthread_mutex_t	*set_forks(int number_of_philo);
 long			ft_atoi(const char *arr);
 int				get_input_value(char *arg, char *error_msg);
 void			free_forks(pthread_mutex_t *fork, int must_be_destroyed);
+void			free_philosophers(t_philosopher *philo, int must_be_destroyed);
 
 /*
 ** Time

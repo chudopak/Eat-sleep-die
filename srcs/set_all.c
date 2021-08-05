@@ -1,5 +1,38 @@
 #include "../philosophers.h"
 
+void	assign_foks(t_philosopher *philo, pthread_mutex_t *fork, int i, int number_of_philo)
+{
+	
+}
+
+t_philosopher	*set_philosophers(t_all *all)
+{
+	int				i;
+	t_philosopher	*philo;
+
+	philo = malloc(sizeof(t_philosopher) * all->input.number_of_philo);
+	if (!philo)
+	{
+		all->error_status = true;
+		return (NULL);
+	}
+	i = -1;
+	while (++i < all->input.number_of_philo)
+	{
+		if (pthread_mutex_init(&philo[i].right_to_eat, NULL))
+		{
+			free_philosophers(philo, i);
+			return (NULL);
+		}
+		philo[i].all = all;
+		philo[i].eaten_meals = 0;
+		philo[i].right_to_write = &all->right_to_write;
+		philo[i].time_to_die = all->input.time_to_die;
+		assign_forks(philo, all->fork, i, all->input.number_of_philo);
+	}
+	return (philo);
+}
+
 pthread_mutex_t	*set_forks(int number_of_philo)
 {
 	int				i;
@@ -30,7 +63,6 @@ void	set_all(t_all *all, int nb_of_args, char **args)
 	if (pthread_mutex_init(&all->right_to_write, NULL))
 		all->error_status = true;
 	all->start_time = get_start_time();
-	printf("%ld\n", all->start_time);
 	all->fork = set_forks(all->input.number_of_philo);
 	//all->philosopher = set_philosophers(all);
 }

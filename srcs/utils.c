@@ -1,5 +1,18 @@
 #include "../philosophers.h"
 
+void	free_philosophers(t_philosopher *philo, int must_be_destroyed)
+{
+	int	i;
+
+	i = 0;
+	while (i < must_be_destroyed)
+	{
+		pthread_mutex_destroy(&philo[i]);
+		i++;
+	}
+	free(philo); 
+}
+
 void	free_forks(pthread_mutex_t *fork, int must_be_destroyed)
 {
 	int	i;
