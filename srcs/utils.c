@@ -1,5 +1,18 @@
 #include "../philosophers.h"
 
+void	free_forks(pthread_mutex_t *fork, int must_be_destroyed)
+{
+	int	i;
+
+	i = 0;
+	while (i < must_be_destroyed)
+	{
+		pthread_mutex_destroy(&fork[i]);
+		i++;
+	}
+	free(fork);
+}
+
 long	ft_atoi(const char *arr)
 {
 	long	sign;

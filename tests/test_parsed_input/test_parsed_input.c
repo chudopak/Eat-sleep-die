@@ -13,6 +13,6 @@ int		main(int ac, char **av)
 	printf("Time to die - %d\n", input.time_to_die);
 	printf("Time to eat - %d\n", input.time_to_eat);
 	printf("Time to sleep - %d\n", input.time_to_sleep);
-	printf("Number of times to eat - %d\n", input.nb_of_times_to_eat);
+	printf("Number of times to eat - %d\n", input.max_nb_of_times_to_eat);
 	return (0);
 }

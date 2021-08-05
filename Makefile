@@ -2,7 +2,7 @@ NAME		= philosophers
 
 FLAGS		= -Wall -Wextra -Werror -g
 
-FILES		= philosophers set_all set_input utils
+FILES		= philosophers set_all set_input utils time
 
 SRCS		= $(patsubst %, srcs/%.c, $(FILES))
 
