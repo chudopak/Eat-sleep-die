@@ -1,5 +1,12 @@
 #include "../philosophers.h"
 
+void	free_all(t_all *all)
+{
+	free_philosophers(all->philosopher, all->input.number_of_philo);
+	free_forks(all->fork, all->input.number_of_philo);
+	pthread_mutex_destroy(&all->right_to_write);
+}
+
 void	free_philosophers(t_philosopher *philo, int must_be_destroyed)
 {
 	int	i;
@@ -7,10 +14,10 @@ void	free_philosophers(t_philosopher *philo, int must_be_destroyed)
 	i = 0;
 	while (i < must_be_destroyed)
 	{
-		pthread_mutex_destroy(&philo[i]);
+		pthread_mutex_destroy(&philo[i].right_to_eat);
 		i++;
 	}
-	free(philo); 
+	free(philo);
 }
 
 void	free_forks(pthread_mutex_t *fork, int must_be_destroyed)

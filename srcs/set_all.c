@@ -1,8 +1,27 @@
 #include "../philosophers.h"
 
-void	assign_foks(t_philosopher *philo, pthread_mutex_t *fork, int i, int number_of_philo)
+void	assign_exact_forks(t_philosopher *philo,
+			pthread_mutex_t *fork, int i1, int i2)
 {
-	
+	if (i1 % 2 == 0)
+	{
+		philo[i1].first_taken_fork = &fork[i1];
+		philo[i1].second_taken_fork = &fork[i2];
+	}
+	else
+	{
+		philo[i1].first_taken_fork = &fork[i2];
+		philo[i1].second_taken_fork = &fork[i1];
+	}
+}
+
+void	assign_forks(t_philosopher *philo,
+			pthread_mutex_t *fork, int i, int number_of_philo)
+{
+	if (i == number_of_philo - 1)
+		assign_exact_forks(philo, fork, i, 0);
+	else
+		assign_exact_forks(philo, fork, i, i + 1);
 }
 
 t_philosopher	*set_philosophers(t_all *all)
@@ -24,6 +43,7 @@ t_philosopher	*set_philosophers(t_all *all)
 			free_philosophers(philo, i);
 			return (NULL);
 		}
+		philo[i].id = i;
 		philo[i].all = all;
 		philo[i].eaten_meals = 0;
 		philo[i].right_to_write = &all->right_to_write;
@@ -64,5 +84,11 @@ void	set_all(t_all *all, int nb_of_args, char **args)
 		all->error_status = true;
 	all->start_time = get_start_time();
 	all->fork = set_forks(all->input.number_of_philo);
-	//all->philosopher = set_philosophers(all);
+	if (all->fork)
+		all->philosopher = set_philosophers(all);
+	else
+		all->philosopher = NULL;
+	if (all->input.is_valid_input == false || !all->fork
+		|| !all->philosopher)
+		all->error_status = true;
 }

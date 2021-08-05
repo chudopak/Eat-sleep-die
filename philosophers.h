@@ -14,13 +14,14 @@ typedef struct s_input {
 	int		time_to_die;
 	int		time_to_eat;
 	int		time_to_sleep;
-	int		max_nb_of_times_to_eat;
+	int		meal_intake;
 	bool	is_valid_input;
 }	t_input;
 
 typedef struct s_all t_all;
 
 typedef struct s_philosopher {
+	int				id;
 	int				eaten_meals;
 	time_t			time_to_die;
 	t_all			*all;
@@ -41,11 +42,24 @@ typedef struct s_all {
 }	t_all;
 
 /*
+** Base functions
+*/
+void			start_threads(t_all *all);
+void			threads_monitoring(t_all *all);
+void			*eat_sleep_think(void *philo);
+void			take_forks(t_philosopher *philo);
+void			eat(t_philosopher *philo);
+void			think(t_philosopher *philo);
+bool			is_philo_alive(t_all *all, int i);
+
+/*
 ** Prepare to multithreading
 */
 void			set_all(t_all *all, int nb_of_args, char **args);
 void			set_input(t_input *input, int nb_of_args, char **args);
 pthread_mutex_t	*set_forks(int number_of_philo);
+void			assign_forks(t_philosopher *philo, pthread_mutex_t *fork,
+					int i, int number_of_philo);
 
 /*
 ** Utils
@@ -54,6 +68,7 @@ long			ft_atoi(const char *arr);
 int				get_input_value(char *arg, char *error_msg);
 void			free_forks(pthread_mutex_t *fork, int must_be_destroyed);
 void			free_philosophers(t_philosopher *philo, int must_be_destroyed);
+void			free_all(t_all *all);
 
 /*
 ** Time

@@ -1,8 +1,8 @@
-NAME		= philosophers
+NAME		= philo
 
 FLAGS		= -Wall -Wextra -Werror -g
 
-FILES		= philosophers set_all set_input utils time
+FILES		= philosophers set_all set_input utils time eat_think
 
 SRCS		= $(patsubst %, srcs/%.c, $(FILES))
 
