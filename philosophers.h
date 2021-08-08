@@ -1,5 +1,5 @@
-#ifndef PHILOSOPHERS
-# define PHILOSOPHERS
+#ifndef PHILOSOPHERS_H
+# define PHILOSOPHERS_H
 
 # include <pthread.h>
 # include <unistd.h>
@@ -8,7 +8,6 @@
 # include <stdio.h>
 # include <sys/time.h>
 # include <limits.h>
-
 
 typedef struct s_input {
 	int		number_of_philo;
@@ -19,30 +18,26 @@ typedef struct s_input {
 	bool	is_valid_input;
 }	t_input;
 
-typedef struct s_all t_all;
+typedef struct s_all	t_all;
 
 typedef struct s_philosopher {
 	int				id;
 	int				eaten_meals;
-	bool			is_philo_full;
 	t_all			*all;
 	time_t			time_to_die;
 	pthread_mutex_t	*first_taken_fork;
 	pthread_mutex_t	*second_taken_fork;
 	pthread_mutex_t	*right_to_write;
-	pthread_mutex_t right_to_eat;
+	pthread_mutex_t	right_to_eat;
 }	t_philosopher;
-
 
 typedef struct s_all {
 	long			start_time;
-	bool			is_all_philo_full;
 	bool			error_status;
 	t_input			input;
 	t_philosopher	*philosopher;
 	pthread_mutex_t	right_to_write;
 	pthread_mutex_t	*fork;
-	pthread_mutex_t change_full_philo_status;
 }	t_all;
 
 /*
@@ -57,7 +52,6 @@ void			think(t_philosopher *philo);
 bool			is_philo_alive(t_all *all, int i);
 void			_usleep(int milliseconds, int start_time);
 void			_sleep(t_philosopher *philo);
-void			*eaten_meals_monitoring(void *data);
 
 /*
 ** Prepare to multithreading

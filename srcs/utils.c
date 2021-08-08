@@ -2,10 +2,21 @@
 
 void	free_all(t_all *all)
 {
-	free_philosophers(all->philosopher, all->input.number_of_philo);
-	free_forks(all->fork, all->input.number_of_philo);
+	int	i;
+
+	i = 0;
+	if (all)
+	{
+		while (i < all->input.number_of_philo)
+		{
+			pthread_mutex_destroy(&all->fork[i]);
+			pthread_mutex_destroy(&all->philosopher[i].right_to_eat);
+			i++;
+		}
+		free(all->fork);
+		free(all->philosopher);
+	}
 	pthread_mutex_destroy(&all->right_to_write);
-	pthread_mutex_destroy(&all->change_full_philo_status);
 }
 
 void	free_philosophers(t_philosopher *philo, int must_be_destroyed)
