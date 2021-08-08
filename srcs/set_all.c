@@ -1,27 +1,18 @@
 #include "../philosophers.h"
 
-void	assign_exact_forks(t_philosopher *philo,
-			pthread_mutex_t *fork, int i1, int i2)
-{
-	if (i1 % 2 == 0)
-	{
-		philo[i1].first_taken_fork = &fork[i1];
-		philo[i1].second_taken_fork = &fork[i2];
-	}
-	else
-	{
-		philo[i1].first_taken_fork = &fork[i2];
-		philo[i1].second_taken_fork = &fork[i1];
-	}
-}
-
 void	assign_forks(t_philosopher *philo,
 			pthread_mutex_t *fork, int i, int number_of_philo)
 {
 	if (i == number_of_philo - 1)
-		assign_exact_forks(philo, fork, i, 0);
+	{
+		philo[i].first_taken_fork = &fork[0];
+		philo[i].second_taken_fork = &fork[i];
+	}
 	else
-		assign_exact_forks(philo, fork, i, i + 1);
+	{
+		philo[i].first_taken_fork = &fork[i];
+		philo[i].second_taken_fork = &fork[i + 1];
+	}
 }
 
 t_philosopher	*set_philosophers(t_all *all)
