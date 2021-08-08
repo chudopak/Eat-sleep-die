@@ -9,7 +9,7 @@ void	_usleep(int milliseconds, int start_time)
 	start = get_current_time(start_time);
 	while (start < stop)
 	{
-		usleep(50);
+		usleep(25);
 		start = get_current_time(start_time);
 	}
 }

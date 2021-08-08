@@ -9,6 +9,8 @@
 # include <sys/time.h>
 # include <limits.h>
 
+typedef struct s_all	t_all;
+
 typedef struct s_input {
 	int		number_of_philo;
 	int		time_to_die;
@@ -17,8 +19,6 @@ typedef struct s_input {
 	int		meal_intake;
 	bool	is_valid_input;
 }	t_input;
-
-typedef struct s_all	t_all;
 
 typedef struct s_philosopher {
 	int				id;
