@@ -35,6 +35,7 @@ t_philosopher	*set_philosophers(t_all *all)
 			return (NULL);
 		}
 		philo[i].id = i;
+		philo[i].is_philo_full = false;
 		philo[i].all = all;
 		philo[i].eaten_meals = 0;
 		philo[i].right_to_write = &all->right_to_write;
@@ -70,8 +71,11 @@ pthread_mutex_t	*set_forks(int number_of_philo)
 void	set_all(t_all *all, int nb_of_args, char **args)
 {
 	all->error_status = false;
+	all->is_all_philo_full = false;
 	set_input(&(all->input), nb_of_args, args);
 	if (pthread_mutex_init(&all->right_to_write, NULL))
+		all->error_status = true;
+	if (pthread_mutex_init(&all->change_full_philo_status, NULL))
 		all->error_status = true;
 	all->start_time = get_start_time();
 	all->fork = set_forks(all->input.number_of_philo);

@@ -30,6 +30,6 @@ void	set_input(t_input *input, int nb_of_args, char **args)
 		input->meal_intake = get_input_value(*args,
 				"Number_of_times_to_eat MUST be positive");
 	else
-		input->meal_intake = 0;
+		input->meal_intake = INT_MAX;
 	input->is_valid_input = validadte_parsed_input(input, nb_of_args);
 }
