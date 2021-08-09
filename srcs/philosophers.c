@@ -36,6 +36,7 @@ void	threads_monitoring(t_all *all)
 			pthread_mutex_lock(&all->right_to_write);
 			return ;
 		}
+		usleep(100);
 	}
 }
 
