@@ -5,17 +5,18 @@ void	free_all(t_all *all)
 	int	i;
 
 	i = 0;
-	if (all)
+	while (i < all->input.number_of_philo)
 	{
-		while (i < all->input.number_of_philo)
-		{
+		if (all->fork)
 			pthread_mutex_destroy(&all->fork[i]);
+		if (all->philosopher)
 			pthread_mutex_destroy(&all->philosopher[i].right_to_eat);
-			i++;
-		}
-		free(all->fork);
-		free(all->philosopher);
+		i++;
 	}
+	if (all->fork)
+		free(all->fork);
+	if (all->philosopher)
+		free(all->philosopher);
 	pthread_mutex_destroy(&all->right_to_write);
 }
 
